@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
+import javax.annotation.PostConstruct;
+
 @Service
-public class PlaybackService {
+public class PlaybackService{
 
     private final MediaPlayerService mediaPlayerService;
 
@@ -16,7 +18,8 @@ public class PlaybackService {
         this.mediaPlayerService = mediaPlayerService;
     }
 
-    public void startPlayback(){
+    @PostConstruct
+    public void init() {
         EmbeddedMediaPlayer mediaPlayer = mediaPlayerService.getNewGraphicalEmbeddedMediaPlayer();
         mediaPlayer.prepareMedia(file);
         mediaPlayer.play();
