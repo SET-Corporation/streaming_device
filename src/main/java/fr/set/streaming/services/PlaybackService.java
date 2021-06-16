@@ -11,7 +11,8 @@ public class PlaybackService{
 
     private final MediaPlayerService mediaPlayerService;
 
-    private final String file = "D:\\Videos\\suprem.mp4";
+    private final String link = "http://localhost:";
+    private final String port = "8082";
 
     @Autowired
     public PlaybackService(MediaPlayerService mediaPlayerService){
@@ -21,7 +22,7 @@ public class PlaybackService{
     @PostConstruct
     public void init() {
         EmbeddedMediaPlayer mediaPlayer = mediaPlayerService.getNewGraphicalEmbeddedMediaPlayer();
-        mediaPlayer.prepareMedia(file);
+        mediaPlayer.prepareMedia(link.concat(port));
         mediaPlayer.play();
     }
 }
