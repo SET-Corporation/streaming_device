@@ -1,4 +1,4 @@
-package fr.set.streaming.services;
+package fr.set.streaming.services.player;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
