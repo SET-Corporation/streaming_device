@@ -20,7 +20,7 @@ public class MediaPlayerService {
         this.graphicalService = graphicalService;
     }
 
-    public EmbeddedMediaPlayer getNewGraphicalEmbeddedMediaPlayer(){
+    public EmbeddedMediaPlayer getNewGraphicalEmbeddedMediaPlayer() {
         Canvas canvas = graphicalService.getCanvas();
         EmbeddedMediaPlayer embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(graphicalService.getJframe(canvas)));
         embeddedMediaPlayer.setVideoSurface(mediaPlayerFactory.newVideoSurface(canvas));

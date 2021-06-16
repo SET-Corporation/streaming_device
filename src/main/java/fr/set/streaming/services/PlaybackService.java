@@ -1,5 +1,6 @@
 package fr.set.streaming.services;
 
+import fr.set.streaming.config.HttpConfiguration;
 import fr.set.streaming.services.mqtt.MessagingService;
 import fr.set.streaming.services.player.MediaPlayerService;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -12,20 +13,18 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import javax.annotation.PostConstruct;
 
 @Service
-public class PlaybackService{
+public class PlaybackService {
 
+    private final HttpConfiguration httpConfiguration;
+    private final MessagingService messagingService;
+    private final EmbeddedMediaPlayer embeddedMediaPlayer;
     Logger logger = LoggerFactory.getLogger(MessagingService.class);
 
-    private final MediaPlayerService mediaPlayerService;
-    private final MessagingService messagingService;
-
-    private final String link = "http://localhost:";
-    private final String port = "8082";
-
     @Autowired
-    public PlaybackService(MediaPlayerService mediaPlayerService, MessagingService messagingService){
-        this.mediaPlayerService = mediaPlayerService;
+    public PlaybackService(HttpConfiguration httpConfiguration, MediaPlayerService mediaPlayerService, MessagingService messagingService) {
+        this.httpConfiguration = httpConfiguration;
         this.messagingService = messagingService;
+        this.embeddedMediaPlayer = mediaPlayerService.getNewGraphicalEmbeddedMediaPlayer();
     }
 
     @PostConstruct
@@ -34,10 +33,9 @@ public class PlaybackService{
         messagingService.publish();
     }
 
-    private void playback(String tpic, String message){
+    private void playback(String tpic, String message) {
         logger.warn(message);
-//        EmbeddedMediaPlayer mediaPlayer = mediaPlayerService.getNewGraphicalEmbeddedMediaPlayer();
-//        mediaPlayer.prepareMedia(link.concat(port));
-//        mediaPlayer.play();
+        embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message));
+        embeddedMediaPlayer.play();
     }
 }
