@@ -1,6 +1,7 @@
 package fr.set.streaming.services;
 
 import fr.set.streaming.config.HttpConfiguration;
+import fr.set.streaming.config.MqttConfiguration;
 import fr.set.streaming.services.mqtt.MessagingService;
 import fr.set.streaming.services.player.MediaPlayerService;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -17,25 +18,33 @@ public class PlaybackService {
 
     private final HttpConfiguration httpConfiguration;
     private final MessagingService messagingService;
-    private final EmbeddedMediaPlayer embeddedMediaPlayer;
+    private final MqttConfiguration mqttConfiguration;
+    private final MediaPlayerService mediaPlayerService;
+    private EmbeddedMediaPlayer embeddedMediaPlayer;
+
     Logger logger = LoggerFactory.getLogger(MessagingService.class);
 
     @Autowired
-    public PlaybackService(HttpConfiguration httpConfiguration, MediaPlayerService mediaPlayerService, MessagingService messagingService) {
+    public PlaybackService(HttpConfiguration httpConfiguration, MessagingService messagingService, MqttConfiguration mqttConfiguration, MediaPlayerService mediaPlayerService) {
         this.httpConfiguration = httpConfiguration;
         this.messagingService = messagingService;
-        this.embeddedMediaPlayer = mediaPlayerService.getNewGraphicalEmbeddedMediaPlayer();
+        this.mediaPlayerService = mediaPlayerService;
+        this.embeddedMediaPlayer = null;
+        this.mqttConfiguration = mqttConfiguration;
     }
 
     @PostConstruct
     public void init() throws MqttException {
-        messagingService.subscribe("set/tv1", this::playback);
-        messagingService.publish();
+        messagingService.subscribe(mqttConfiguration.getTopic(), this::playback, 2);
     }
 
     private void playback(String tpic, String message) {
-        logger.warn(message);
-        embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message));
-        embeddedMediaPlayer.play();
+        if(tpic.equals(mqttConfiguration.getTopic())) {
+            logger.warn(tpic);
+            logger.warn(message);
+            embeddedMediaPlayer = mediaPlayerService.getNewGraphicalEmbeddedMediaPlayer();
+            embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message));
+            embeddedMediaPlayer.play();
+        }
     }
 }

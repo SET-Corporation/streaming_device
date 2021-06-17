@@ -15,15 +15,10 @@ public class MessagingService {
         this.mqttClient = mqttClient;
     }
 
-    public void subscribe(final String topic, MqttMethod mqttMethod) throws MqttException {
-        mqttClient.subscribeWithResponse(topic, (tpic, msg) -> {
+    public void subscribe(final String topic, MqttMethod mqttMethod, int qos) throws MqttException {
+        mqttClient.subscribeWithResponse(topic, qos, (tpic, msg) -> {
             String message = new String(msg.getPayload());
             mqttMethod.operate(tpic, message);
         });
     }
-
-    public void publish() throws MqttException {
-        mqttClient.publish("set/tv1", "8082".getBytes(), 0, true);
-    }
-
 }

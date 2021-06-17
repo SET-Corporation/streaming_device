@@ -15,4 +15,5 @@ public class MqttConfiguration {
     private String hostname;
     private String port;
     private String clientId;
+    private String topic;
 }
