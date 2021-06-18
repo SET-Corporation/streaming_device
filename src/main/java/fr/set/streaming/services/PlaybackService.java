@@ -31,6 +31,7 @@ public class PlaybackService {
         this.mediaPlayerService = mediaPlayerService;
         this.embeddedMediaPlayer = null;
         this.mqttConfiguration = mqttConfiguration;
+        this.embeddedMediaPlayer = mediaPlayerService.getNewGraphicalEmbeddedMediaPlayer();
     }
 
     @PostConstruct
@@ -39,12 +40,12 @@ public class PlaybackService {
     }
 
     private void playback(String tpic, String message) {
+        logger.warn(tpic);
+        logger.warn(message);
         if(tpic.equals(mqttConfiguration.getTopic())) {
-            logger.warn(tpic);
-            logger.warn(message);
-            embeddedMediaPlayer = mediaPlayerService.getNewGraphicalEmbeddedMediaPlayer();
             embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message));
             embeddedMediaPlayer.play();
         }
+
     }
 }
