@@ -19,7 +19,6 @@ public class PlaybackService {
     private final HttpConfiguration httpConfiguration;
     private final MessagingService messagingService;
     private final MqttConfiguration mqttConfiguration;
-    private final MediaPlayerService mediaPlayerService;
     private EmbeddedMediaPlayer embeddedMediaPlayer;
 
     Logger logger = LoggerFactory.getLogger(MessagingService.class);
@@ -28,7 +27,6 @@ public class PlaybackService {
     public PlaybackService(HttpConfiguration httpConfiguration, MessagingService messagingService, MqttConfiguration mqttConfiguration, MediaPlayerService mediaPlayerService) {
         this.httpConfiguration = httpConfiguration;
         this.messagingService = messagingService;
-        this.mediaPlayerService = mediaPlayerService;
         this.embeddedMediaPlayer = null;
         this.mqttConfiguration = mqttConfiguration;
         this.embeddedMediaPlayer = mediaPlayerService.getNewGraphicalEmbeddedMediaPlayer();
@@ -42,10 +40,7 @@ public class PlaybackService {
     private void playback(String tpic, String message) {
         logger.warn(tpic);
         logger.warn(message);
-        if(tpic.equals(mqttConfiguration.getTopic())) {
-            embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message));
-            embeddedMediaPlayer.play();
-        }
-
+        embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message));
+        embeddedMediaPlayer.play();
     }
 }
