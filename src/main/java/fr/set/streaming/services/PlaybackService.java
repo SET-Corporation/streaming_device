@@ -38,9 +38,14 @@ public class PlaybackService {
     }
 
     private void playback(String tpic, String message) {
-        logger.warn(tpic);
-        logger.warn(message);
-        embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message));
-        embeddedMediaPlayer.play();
+        if(message.equals("0")){
+            embeddedMediaPlayer.stop();
+            logger.info("stopping playlist..");
+        }
+        else {
+            embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message));
+            embeddedMediaPlayer.play();
+            logger.info("start playlist..");
+        }
     }
 }
