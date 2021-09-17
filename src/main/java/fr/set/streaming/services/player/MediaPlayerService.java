@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
-//import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
-import uk.co.caprica.vlcj.player.embedded.x.XFullScreenStrategy;
+import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
+//import uk.co.caprica.vlcj.player.embedded.x.XFullScreenStrategy;
 
 import java.awt.*;
 
@@ -23,8 +23,8 @@ public class MediaPlayerService {
 
     public EmbeddedMediaPlayer getNewGraphicalEmbeddedMediaPlayer() {
         Canvas canvas = graphicalService.getCanvas();
-        EmbeddedMediaPlayer embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new XFullScreenStrategy(graphicalService.getJframe(canvas)));
-        //EmbeddedMediaPlayer embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(graphicalService.getJframe(canvas)));
+        //EmbeddedMediaPlayer embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new XFullScreenStrategy(graphicalService.getJframe(canvas)));
+        EmbeddedMediaPlayer embeddedMediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(graphicalService.getJframe(canvas)));
         embeddedMediaPlayer.setVideoSurface(mediaPlayerFactory.newVideoSurface(canvas));
         embeddedMediaPlayer.toggleFullScreen();
         embeddedMediaPlayer.setEnableKeyInputHandling(false);
