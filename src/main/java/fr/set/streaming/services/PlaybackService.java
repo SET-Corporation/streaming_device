@@ -43,15 +43,9 @@ public class PlaybackService {
             logger.info("stopping playlist..");
         }
         else {
-            embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message), vlcArgs());
+            embeddedMediaPlayer.prepareMedia(httpConfiguration.getHostname().concat(message));
             embeddedMediaPlayer.play();
             logger.info("start playlist..");
         }
-    }
-
-    private String[] vlcArgs() {
-        return new String[]{
-                ":vout=omxil_vout",
-        };
     }
 }
