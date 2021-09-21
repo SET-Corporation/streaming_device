@@ -62,7 +62,7 @@ cd $workd
 echo "java -jar $workd/app/bin/tg.jar" | tee -a $workd/streaming.sh
 chmod +x streaming.sh
 cp streaming.sh $workd/app
-echo "@reboot /sbin/runuser $USER -s /bin/bash -c \"$workd/app/streaming.sh\"" | sudo crontab -
+echo "@reboot /sbin/runuser $USER -s /bin/bash -c \"$workd/app/streaming.sh\"" | crontab -
 
 #Build and run the project
 cd $workd
