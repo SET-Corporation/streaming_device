@@ -55,8 +55,8 @@ mqtt.clientId=$mqttid
 mqtt.topic=set/$mqttid
 
 http.hostname=http://setvideo:\n
-" | sudo tee -a $workd/src/main/resources/application.properties
+" | tee -a $workd/src/main/resources/application.properties
 cd $workd
 mvn package -DskipTest
-cp ./target/tg.jar $workd/app
-java -jar ./target/tg.jar
+cp $workd/target/tg.jar $workd/app
+java -jar $workd/app/tg.jar
