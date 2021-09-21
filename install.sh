@@ -23,7 +23,7 @@ sudo apt install -y --no-install-recommends vlc git java-common
 
 #Create directory
 sudo mkdir /app
-sudo chmod /app 777
+sudo chmod -R /app 777
 
 #Maven
 cd /app
