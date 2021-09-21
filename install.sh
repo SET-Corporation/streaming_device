@@ -22,21 +22,22 @@ sudo apt autoremove -y
 sudo apt install -y --no-install-recommends vlc git java-common
 
 #Create directory
-sudo mkdir /usr/streaming
+sudo mkdir /app
+sudo chmod /app 777
 
 #Maven
-cd /usr/streaming
-sudo wget https://dlcdn.apache.org/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.zip
-sudo unzip apache-maven-3.8.2-bin.zip
-sudo rm -Rf apache-maven-3.8.2-bin.zip
+cd /app
+wget https://dlcdn.apache.org/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.zip
+unzip apache-maven-3.8.2-bin.zip
+rm -Rf apache-maven-3.8.2-bin.zip
 cd apache-maven-3.8.2
 export PATH=$PATH:$(pwd)
 
 #JDK Amazon Corretto 11 (ARM)
-cd /usr/streaming
-sudo wget https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-linux-armv7.tar.gz
-sudo tar -xvf amazon-corretto-11.0.12.7.1-linux-armv7.tar.gz
-sudo rm -Rf amazon-corretto-11.0.12.7.1-linux-armv7.tar.gz
+cd /app
+wget https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-linux-armv7.tar.gz
+tar -xvf amazon-corretto-11.0.12.7.1-linux-armv7.tar.gz
+rm -Rf amazon-corretto-11.0.12.7.1-linux-armv7.tar.gz
 cd amazon-corretto-11.0.12.7.1-linux-armv7
 export PATH=$PATH:$(pwd)
 
@@ -44,7 +45,7 @@ export PATH=$PATH:$(pwd)
 echo "PATH=\"$PATH:/usr/streaming/amazon-corretto-11.0.12.7.1-linux-armv7/bin:/usr/streaming/apache-maven-3.8.2/bin\"" | sudo tee -a /etc/profile
 
 #Build and run the project
-cd /usr/streaming
+cd /app
 sudo git clone https://github.com/SET-Corporation/streaming_device.git
 cd streaming_device
 echo "mqtt.user=user
@@ -55,7 +56,6 @@ mqtt.clientId=$mqttid
 mqtt.topic=set/$mqttid
 
 http.hostname=http://setvideo:\n
-" | sudo tee -a /usr/streaming/streaming_device/src/main/resources/application.properties
-sudo chmod -R 777 /usr/streaming
+" | sudo tee -a /app/streaming_device/src/main/resources/application.properties
 mvn package -DskipTest
 java -jar ./target/tg.jar
