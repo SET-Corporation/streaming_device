@@ -25,7 +25,7 @@ sudo apt autoremove -y
 sudo apt install -y --no-install-recommends vlc git java-common
 
 #Create directory for the app
-mkdir ./app
+mkdir $workd/app/bin
 
 #Maven
 cd $workd/app
@@ -57,11 +57,15 @@ mqtt.topic=set/$mqttid
 http.hostname=http://setvideo:
 " | tee -a $workd/src/main/resources/application.properties
 
+#Configure to start the service at startup
+cd $workd
+echo "java -jar $workd/app/bin/tg.jar" | tee -a $workd/streaming.sh
+chmod +x streaming.sh
+cp streaming.sh $workd/app
+echo "@reboot /sbin/runuser $USER -s /bin/bash -c \"$workd/app/streaming.sh\"" | sudo crontab -
+
 #Build and run the project
 cd $workd
 mvn package -DskipTest
-cp $workd/target/tg.jar $workd/app
-java -jar $workd/app/tg.jar
-
-#Add crontab entrie
-echo "@reboot /sbin/runuser $USER -s /bin/bash -c \"java -jar $workd/app/tg.jar\"" | sudo crontab -
+cp $workd/target/tg.jar $workd/app/bin/
+java -jar $workd/app/bin/tg.jar
