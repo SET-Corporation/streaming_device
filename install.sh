@@ -25,7 +25,7 @@ sudo apt autoremove -y
 sudo apt install -y --no-install-recommends vlc git java-common
 
 #Create directory for the app
-mkdir $workd/app/bin
+mkdir -p $workd/app/bin
 
 #Maven
 cd $workd/app
