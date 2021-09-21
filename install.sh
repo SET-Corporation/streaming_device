@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Gather current directory
-workd=($pwd)
+workd=$(pwd)
 
 #Check if internet (ping google.com)
 printf "checking internet connection ...\n\n"
