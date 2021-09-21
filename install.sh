@@ -54,8 +54,8 @@ mqtt.port=1883
 mqtt.clientId=$mqttid
 mqtt.topic=set/$mqttid
 
-http.hostname=http://setvideo:\n
-" > $workd/src/main/resources/application.properties
+http.hostname=http://setvideo:
+" | tee -a $workd/src/main/resources/application.properties
 cd $workd
 mvn package -DskipTest
 cp $workd/target/tg.jar $workd/app
