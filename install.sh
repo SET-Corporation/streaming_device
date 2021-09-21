@@ -47,7 +47,6 @@ export PATH=$PATH:$jdkdir
 echo "PATH=\"$PATH:$jdkdir/bin:$mvndir/bin\"" | sudo tee -a /etc/profile
 
 #Build and run the project
-cd $workd
 echo "mqtt.user=user
 mqtt.password=user
 mqtt.hostname=setvideo
@@ -56,7 +55,8 @@ mqtt.clientId=$mqttid
 mqtt.topic=set/$mqttid
 
 http.hostname=http://setvideo:\n
-" | sudo tee -a ./src/main/resources/application.properties
+" | sudo tee -a $workd/src/main/resources/application.properties
+cd $workd
 mvn package -DskipTest
 cp ./target/tg.jar $workd/app
 java -jar ./target/tg.jar
