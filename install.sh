@@ -62,3 +62,6 @@ cd $workd
 mvn package -DskipTest
 cp $workd/target/tg.jar $workd/app
 java -jar $workd/app/tg.jar
+
+#Add crontab entrie
+echo "@reboot /sbin/runuser $USER -s /bin/bash -c \"java -jar $workd/app/tg.jar\"" | sudo crontab -
