@@ -56,5 +56,5 @@ mqtt.topic=set/$mqttid
 
 http.hostname=http://setvideo:\n
 " | sudo tee -a /usr/streaming/streaming_device/src/main/resources/application.properties
-sudo mvn package -DskipTest
-sudo java -jar ./target/tg.jar
+mvn package -DskipTest
+java -jar ./target/tg.jar
