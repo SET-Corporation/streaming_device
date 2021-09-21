@@ -43,6 +43,9 @@ rm -Rf amazon-corretto-11.0.12.7.1-linux-armv7.tar.gz
 jdkdir=$(pwd)/amazon-corretto-11.0.12.7.1-linux-armv7/bin
 export PATH=$PATH:$jdkdir
 
+#Persist path to java and maven
+echo "PATH=\"$PATH:$jdkdir/bin:$mvndir/bin\"" | sudo tee -a /etc/profile
+
 #Configure app properties
 echo "mqtt.user=user
 mqtt.password=user
@@ -53,9 +56,6 @@ mqtt.topic=set/$mqttid
 
 http.hostname=http://setvideo:
 " | tee -a $workd/src/main/resources/application.properties
-
-#Persist path to java and maven
-echo "PATH=\"$PATH:$jdkdir/bin:$mvndir/bin\"" | sudo tee -a /etc/profile
 
 #Build and run the project
 cd $workd
