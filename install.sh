@@ -27,14 +27,6 @@ sudo apt install -y --no-install-recommends vlc git java-common
 #Create directory for the app
 mkdir -p $workd/app/bin
 
-#Maven
-cd $workd/app
-wget https://dlcdn.apache.org/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.zip
-unzip apache-maven-3.8.2-bin.zip
-rm -Rf apache-maven-3.8.2-bin.zip
-mvndir=$(pwd)/apache-maven-3.8.2/bin
-export PATH=$PATH:$mvndir
-
 #JDK Amazon Corretto 11 (ARM)
 cd $workd/app
 wget https://corretto.aws/downloads/resources/11.0.12.7.1/amazon-corretto-11.0.12.7.1-linux-armv7.tar.gz
@@ -45,6 +37,14 @@ export PATH=$PATH:$jdkdir
 
 #Persist path to java and maven
 echo "PATH=\"$PATH\"" | sudo tee -a /etc/profile
+
+#Maven
+cd $workd/app
+wget https://dlcdn.apache.org/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.zip
+unzip apache-maven-3.8.2-bin.zip
+rm -Rf apache-maven-3.8.2-bin.zip
+mvndir=$(pwd)/apache-maven-3.8.2/bin
+export PATH=$PATH:$mvndir
 
 #Configure app properties
 echo "mqtt.user=user
