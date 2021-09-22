@@ -71,6 +71,7 @@ After=graphical.target
 Type=simple
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/$USER/.Xauthority
+Environment=PATH=$PATH:$jdkdir
 Restart=always
 RestartSec=5
 ExecStart=/bin/bash $workd/app/streaming.sh
@@ -90,6 +91,7 @@ cp $workd/target/tg.jar $workd/app/bin/
 shopt -s extglob
 cd $workd
 rm -Rf !("app")
+rm -Rf $workd/app/apache-maven-3.8.2/
 
 #Run java application
 printf "\ninstallation competed\nplease reboot the computer to apply changes."
