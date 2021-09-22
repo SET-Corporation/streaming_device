@@ -57,12 +57,29 @@ mqtt.topic=set/$mqttid
 http.hostname=http://setvideo:
 " | tee -a $workd/src/main/resources/application.properties
 
-#Configure to start the service at startup
-cd $workd
-echo "java -jar $workd/app/bin/tg.jar" | tee -a $workd/streaming.sh
-chmod +x streaming.sh
-cp streaming.sh $workd/app
-echo "@reboot /sbin/runuser $USER -s /bin/bash -c \"$workd/app/streaming.sh\"" | crontab -
+#Create launcher script
+echo "java -jar $workd/app/bin/tg.jar" | tee -a $workd/app/streaming.sh
+chmod +x $workd/app/streaming.sh
+
+#Configuring the service
+echo "[Unit]
+      Description=Streaming client
+      After=network.target
+      After=graphical.target
+
+      [Service]
+      Type=simple
+      Environment=DISPLAY=:0
+      Environment=XAUTHORITY=/home/$USER/.Xauthority
+      Restart=always
+      RestartSec=5
+      ExecStart=/bin/bash $workd/app/streaming.sh
+
+      [Install]
+      WantedBy=graphical.target" | tee -a /etc/systemd/system/streaming.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable streaming.service
 
 #Build and run the project
 cd $workd
