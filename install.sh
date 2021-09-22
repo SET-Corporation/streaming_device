@@ -92,4 +92,4 @@ cd $workd
 rm -Rf !("app")
 
 #Run java application
-sudo systemctl start streaming.service
+printf "\ninstallation competed\nplease reboot the computer to apply changes."
