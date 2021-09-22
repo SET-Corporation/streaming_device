@@ -90,8 +90,8 @@ cp $workd/target/tg.jar $workd/app/bin/
 #Erase temp files
 shopt -s extglob
 cd $workd
-rm -Rf !("app")
-rm -Rf $workd/app/apache-maven-3.8.2/
+rm -Rfv !("app")
+rm -Rfv $workd/app/apache-maven-3.8.2/
 
 #Run java application
 printf "\ninstallation competed\nplease reboot the computer to apply changes."
