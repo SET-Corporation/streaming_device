@@ -6,3 +6,4 @@ do
 done
 
 export DISPLAY=:0
+export PATH=$PATH:./amazon-corretto-11.0.12.7.1-linux-armv7/bin
