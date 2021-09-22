@@ -76,7 +76,7 @@ echo "[Unit]
       ExecStart=/bin/bash $workd/app/streaming.sh
 
       [Install]
-      WantedBy=graphical.target" | tee -a /etc/systemd/system/streaming.service
+      WantedBy=graphical.target" | sudo tee -a /etc/systemd/system/streaming.service
 
 sudo systemctl daemon-reload
 sudo systemctl enable streaming.service
