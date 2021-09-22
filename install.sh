@@ -44,7 +44,7 @@ jdkdir=$(pwd)/amazon-corretto-11.0.12.7.1-linux-armv7/bin
 export PATH=$PATH:$jdkdir
 
 #Persist path to java and maven
-echo "PATH=\"$PATH:$jdkdir/bin:$mvndir/bin\"" | sudo tee -a /etc/profile
+echo "PATH=\"$PATH\"" | sudo tee -a /etc/profile
 
 #Configure app properties
 echo "mqtt.user=user
