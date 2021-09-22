@@ -81,6 +81,10 @@ echo "[Unit]
 sudo systemctl daemon-reload
 sudo systemctl enable streaming.service
 
+#Erase temp files
+cd $workd
+rm -Rf !("app")
+
 #Build and run the project
 cd $workd
 mvn package -DskipTest
