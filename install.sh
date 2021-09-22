@@ -63,20 +63,20 @@ chmod +x $workd/app/streaming.sh
 
 #Configuring the service
 echo "[Unit]
-      Description=Streaming client
-      After=network.target
-      After=graphical.target
+Description=Streaming client
+After=network.target
+After=graphical.target
 
-      [Service]
-      Type=simple
-      Environment=DISPLAY=:0
-      Environment=XAUTHORITY=/home/$USER/.Xauthority
-      Restart=always
-      RestartSec=5
-      ExecStart=/bin/bash $workd/app/streaming.sh
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/$USER/.Xauthority
+Restart=always
+RestartSec=5
+ExecStart=/bin/bash $workd/app/streaming.sh
 
-      [Install]
-      WantedBy=graphical.target" | sudo tee -a /etc/systemd/system/streaming.service
+[Install]
+WantedBy=graphical.target" | sudo tee -a /etc/systemd/system/streaming.service
 
 sudo systemctl daemon-reload
 sudo systemctl enable streaming.service
