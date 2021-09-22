@@ -87,7 +87,9 @@ mvn package -DskipTest
 cp $workd/target/tg.jar $workd/app/bin/
 
 #Erase temp files
-find $workd -mindepth 1 ! -regex "^$workd/app\(/.*\)?" -delete
+shopt -s extglob
+cd $workd
+rm -Rf !("app")
 
 #Run java application
 sudo systemctl start streaming.service
