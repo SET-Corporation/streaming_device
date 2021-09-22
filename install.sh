@@ -81,11 +81,13 @@ echo "[Unit]
 sudo systemctl daemon-reload
 sudo systemctl enable streaming.service
 
-#Erase temp files
-find $workd -mindepth 1 ! -regex "^$workd/app\(/.*\)?" -delete
-
-#Build and run the project
+#Build the project
 cd $workd
 mvn package -DskipTest
 cp $workd/target/tg.jar $workd/app/bin/
-java -jar $workd/app/bin/tg.jar
+
+#Erase temp files
+find $workd -mindepth 1 ! -regex "^$workd/app\(/.*\)?" -delete
+
+#Run java application
+sudo systemctl start streaming.service
