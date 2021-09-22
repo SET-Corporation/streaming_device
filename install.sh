@@ -82,8 +82,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable streaming.service
 
 #Erase temp files
-cd $workd
-rm -Rf !("app")
+find $workd -mindepth 1 ! -regex '^$workd/app\(/.*\)?' -delete
 
 #Build and run the project
 cd $workd
