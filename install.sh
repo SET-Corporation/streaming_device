@@ -18,6 +18,9 @@ fi
 printf "\nplease provide mqtt client ID : "
 read mqttid
 
+#set hostname
+echo "$mqttid" | sudo tee /etc/hostname
+
 #Deps
 sudo apt update -y
 sudo apt upgrade -y
