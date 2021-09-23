@@ -70,7 +70,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>tg</finalName>
+                    <finalName>streaming</finalName>
                 </configuration>
             </plugin>
         </plugins>
