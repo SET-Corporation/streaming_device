@@ -61,7 +61,7 @@ http.hostname=http://setvideo:
 " | tee -a $workd/src/main/resources/application.properties
 
 #Create launcher script
-echo "java -jar $workd/app/bin/tg.jar" | tee -a $workd/app/streaming.sh
+echo "java -jar $workd/app/bin/streaming.jar" | tee -a $workd/app/streaming.sh
 chmod +x $workd/app/streaming.sh
 
 #Configuring the service
@@ -88,7 +88,7 @@ sudo systemctl enable streaming.service
 #Build the project
 cd $workd
 mvn package -DskipTest
-cp $workd/target/tg.jar $workd/app/bin/
+cp $workd/target/streaming.jar $workd/app/bin/
 
 #Erase temp files
 shopt -s extglob
