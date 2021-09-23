@@ -84,6 +84,7 @@ WantedBy=graphical.target" | sudo tee -a /etc/systemd/system/streaming.service
 
 sudo systemctl daemon-reload
 sudo systemctl enable streaming.service
+sudo systemctl enable ssh
 
 #Build the project
 cd $workd
